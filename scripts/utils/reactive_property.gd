@@ -27,6 +27,17 @@ func _init(initial_value: Variant = null) -> void:
 
 ## 구독 — emit_initial=true 이면 현재 값으로 즉시 한 번 호출.
 ## 반환값: 해제용 Callable. `var unsub := prop.subscribe(cb)` 후 `unsub.call()` 로 해제.
+##
+## ⚠️ **중요**: 반환된 Callable 을 **반드시** 보관하세요.
+## 버리면 구독이 영구 남아 메모리 누수가 됩니다.
+##
+## Bad (누수):
+##   prop.subscribe(func(v): print(v))   # unsub 버림 → 누수
+##
+## Good (안전):
+##   var unsub := prop.subscribe(func(v): print(v))
+##   # ... 나중에 ...
+##   unsub.call()
 func subscribe(callback: Callable, emit_initial: bool = false) -> Callable:
 	var wrapper := func(new_value: Variant, _old: Variant) -> void:
 		callback.call(new_value)

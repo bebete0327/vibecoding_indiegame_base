@@ -11,6 +11,9 @@
 class_name HealthComponent
 extends Node
 
+## health_changed: current 값 변경 시 (데미지/힐 공통) — setter 에서 자동 emit.
+## damaged/healed: 데미지/힐 이벤트 자체 (양 정보 포함).
+## died: current_health 가 0 도달 시 — setter 에서 자동 emit.
 signal health_changed(current: int, maximum: int)
 signal damaged(amount: int)
 signal healed(amount: int)

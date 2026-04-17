@@ -207,7 +207,19 @@ knowledge_base/      → LLM 지식 위키
 - `creative-director`, `technical-director`, `game-designer` — 디자인/아키텍처 리뷰
 
 ### 외부 — gstack (선택, `~/.claude/skills/gstack/`)
-`docs/SETUP.md` 참조. 주요: `/office-hours`, `/plan-ceo-review`, `/careful`, `/learn`
+`docs/SETUP.md` 참조. **CCGS 스킬과 중복되지 않는 것**만 선별 사용 권장:
+- `/office-hours` — 엔지니어링 1:1 상담 (CCGS 에 대체 없음)
+- `/plan-ceo-review` — 제품 전략 리뷰 (CCGS 에 대체 없음)
+- `/careful` — 신중 모드 (CCGS 에 대체 없음)
+- `/learn` — 패턴 학습 (CCGS 에 대체 없음)
+
+**중복되는 것 — CCGS 쪽 권장**:
+- gstack `/review` ⟷ CCGS `/code-review` (**후자 사용** — 구조화된 체크리스트)
+- gstack `/retro` ⟷ CCGS `/retrospective` (**후자 사용** — 더 상세한 템플릿)
+- gstack `/qa` ⟷ CCGS `/smoke-check` + `/bug-report` (**후자 조합 사용**)
+
+### Solo Review Mode (CCGS 디렉터 게이트)
+기본값: `solo` (`production/review-mode.txt` 에 저장). 스킬이 creative-director 등 게이트를 스폰하기 전 이 값을 확인하고 대부분 스킵합니다. 팀 모드가 필요하면 `production/review-mode.txt` 를 `lean` 또는 `full` 로 수정.
 
 ## Context Management
 - `/clear`: 작업 단위 변경 시 **반드시** 사용 (어텐션 희석 방지)

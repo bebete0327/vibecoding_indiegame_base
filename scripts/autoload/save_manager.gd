@@ -52,8 +52,8 @@ func load_data(slot: int = DEFAULT_SLOT) -> Dictionary:
 	var parsed: Variant = JSON.parse_string(text)
 	if parsed is Dictionary:
 		load_completed.emit(slot, true)
-		return parsed
-	push_error("[SaveManager] Invalid save format at %s" % path)
+		return parsed as Dictionary
+	push_error("[SaveManager] Invalid save format at %s (expected Dictionary, got %s)" % [path, type_string(typeof(parsed))])
 	load_completed.emit(slot, false)
 	return {}
 

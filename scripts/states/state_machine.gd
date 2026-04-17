@@ -24,6 +24,7 @@ var _owner_actor: Node
 
 
 ## 상태들을 자식 노드에서 수집하고 초기 상태로 진입.
+## 초기 상태 미존재 시 push_error 후 조용히 반환 (release 에서도 안전).
 func setup(owner_actor: Node, initial_state_name: StringName) -> void:
 	_owner_actor = owner_actor
 	for child in get_children():
@@ -31,8 +32,9 @@ func setup(owner_actor: Node, initial_state_name: StringName) -> void:
 			var s := child as State
 			s.owner_actor = owner_actor
 			_states[s.name] = s
-	assert(_states.has(initial_state_name),
-		"Initial state not found: %s (available: %s)" % [initial_state_name, _states.keys()])
+	if not _states.has(initial_state_name):
+		push_error("[StateMachine] Initial state not found: %s (available: %s)" % [initial_state_name, _states.keys()])
+		return
 	current_state = _states[initial_state_name]
 	current_state.enter()
 

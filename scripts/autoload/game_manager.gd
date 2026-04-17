@@ -27,7 +27,8 @@ var score: int = 0:
 		if value == score:
 			return
 		score = value
-		EventBus.score_changed.emit(value)
+		if is_instance_valid(EventBus):
+			EventBus.score_changed.emit(value)
 
 signal state_changed(previous: GameState, current: GameState)
 

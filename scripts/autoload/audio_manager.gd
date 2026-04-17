@@ -73,6 +73,7 @@ func stop_bgm() -> void:
 func play_sfx(stream: AudioStream, pitch_range: Vector2 = Vector2(1.0, 1.0)) -> void:
 	var player := _get_free_sfx_player()
 	if player == null:
+		push_warning("[AudioManager] SFX pool exhausted (size=%d) — dropping stream" % SFX_POOL_SIZE)
 		return
 	player.stream = stream
 	player.volume_db = linear_to_db(sfx_volume)

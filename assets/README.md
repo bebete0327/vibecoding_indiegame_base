@@ -8,6 +8,7 @@
 | `audio/` | BGM, SFX, 내레이션 | `.ogg`, `.wav`, `.mp3` |
 | `fonts/` | 폰트 파일 | `.ttf`, `.otf`, `.fnt` |
 | `models/` | 3D 모델, 애니메이션 | `.glb`, `.gltf`, `.fbx` |
+| `data/` | 게임 데이터 (`.tres`/`.json`) — 밸런스 값, 아이템 정의 등 | `.tres`, `.json`, `.csv` |
 
 ## 가이드라인
 
