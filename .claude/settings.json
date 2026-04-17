@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash($GODOT_PATH *)",
+      "Bash(\"$GODOT_PATH\" *)",
+      "Bash(ls *)",
+      "Bash(git *)",
+      "Bash(node *)",
+      "Bash(npm *)",
+      "Bash(npx *)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "command": "bash -c 'CHANGED_FILE=\"$CLAUDE_FILE_PATH\"; if [[ \"$CHANGED_FILE\" == *.gd ]]; then if [[ -z \"$GODOT_PATH\" ]]; then echo \"[hook] GODOT_PATH 미설정 — docs/SETUP.md 참고\" 1>&2; exit 0; fi; \"$GODOT_PATH\" --headless --path . -e --quit 2>&1 || true; fi'",
+        "timeout": 30000,
+        "description": "GDScript 파일 수정 시 프로젝트 자동 검증 ($GODOT_PATH 사용)"
+      }
+    ]
+  }
+}

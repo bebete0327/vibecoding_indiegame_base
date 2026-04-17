@@ -1,0 +1,25 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+*.translation
+*.pot
+export_presets.cfg
+export_presets.cfg.backup
+
+# Knowledge Base raw files (personal/unprocessed)
+knowledge_base/Raw/
+
+# Claude Code
+.claude/plans/
+.claude/sessions/
+.claude/settings.local.json
+.claude/shell-snapshots/
+.claude/backups/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Debug screenshots
+screenshots/

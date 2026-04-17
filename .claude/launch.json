@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "godot-game",
+      "runtimeExecutable": "${env:GODOT_PATH}",
+      "runtimeArgs": ["--path", "."],
+      "port": 6007
+    }
+  ]
+}
