@@ -1,7 +1,7 @@
 ## Project entry point — 2D/3D 중립 스텁.
 ## 새 게임을 시작할 때 여기에서 루트 게임 씬을 load/instantiate 하세요.
 ## docs/TEMPLATE_GUIDE.md 를 먼저 읽고 시작하는 것을 권장합니다.
-class_name Main
+## (class_name 생략: 씬에서 직접 참조하므로 전역 등록 불필요)
 extends Node
 
 
