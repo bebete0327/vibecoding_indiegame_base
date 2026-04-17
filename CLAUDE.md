@@ -35,6 +35,8 @@
 
 ## Vibe Coding Workflow (바이브코딩 무한 루프)
 
+> **변경 크기에 따라 다른 플로우**: [docs/WORKFLOW.md](docs/WORKFLOW.md) 결정 트리 먼저 확인. 아래는 기본 (1일~1주 기능) 플로우.
+
 ### Phase 1: Brainstorm (브레인스토밍)
 ```
 사용자: "이런 게임을 만들고 싶어" → AI가 시스템 구조 제안

@@ -6,6 +6,9 @@ paths:
 
 # Gameplay Code Rules
 
+> 인간-리더블 컨벤션: [docs/CONVENTIONS.md](../../docs/CONVENTIONS.md)
+> 이 파일은 에이전트가 `scripts/**` 파일 변경 시 자동 검토하는 룰.
+
 - ALL gameplay values MUST come from external config/data files, NEVER hardcoded
 - Use delta time for ALL time-dependent calculations (frame-rate independence)
 - NO direct references to UI code — use events/signals for cross-system communication

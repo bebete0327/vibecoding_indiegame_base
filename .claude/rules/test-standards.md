@@ -5,6 +5,9 @@ paths:
 
 # Test Standards
 
+> 인간-리더블 가이드: [CLAUDE.md "Testing (GUT)"](../../CLAUDE.md) 섹션.
+> 이 파일은 에이전트가 `tests/**` 파일 변경 시 자동 검토하는 룰.
+
 - Test naming: `test_[system]_[scenario]_[expected_result]` pattern
 - Every test must have a clear arrange/act/assert structure
 - Unit tests must not depend on external state (filesystem, network, database)

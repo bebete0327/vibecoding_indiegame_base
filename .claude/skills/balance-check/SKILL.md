@@ -4,7 +4,7 @@ description: "Analyzes game balance data files, formulas, and configuration to i
 argument-hint: "[system-name|path-to-data-file]"
 user-invocable: true
 allowed-tools: Read, Glob, Grep
-agent: economy-designer
+agent: game-designer
 ---
 
 ## Phase 1: Identify Balance Domain
@@ -108,8 +108,8 @@ If yes:
 - Ask which issue to address first (refer to the Recommendations table by priority row)
 - Guide the user to update the relevant data file in `assets/data/` or formula in `design/balance/`
 - After each fix, offer to re-run the relevant balance checks to verify no new outliers were introduced
-- If the fix changes a tuning knob defined in a GDD or referenced by an ADR, remind the user:
-  > "This value is defined in a design document. Run `/propagate-design-change [path]` on the affected GDD to find downstream impacts before committing."
+- If the fix changes a Tuning Knob defined in a GDD (see `docs/GDD_TEMPLATE.md` §7), remind the user:
+  > "This value is defined in the GDD's Tuning Knobs section. Review §6 Dependencies in that GDD to find downstream systems before committing."
 
 If no:
 - Summarize open issues and suggest saving the report to `design/balance/balance-check-[system]-[date].md` for later

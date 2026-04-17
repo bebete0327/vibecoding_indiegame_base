@@ -105,12 +105,12 @@ Categorize all findings into four buckets:
 - **Bug reports** — clear implementation defects that are reproducible
 - **Polish items** — not blocking progress, but friction or feel issues for later
 
-Present the categorized list, then route:
+Present the categorized list, then route (이 템플릿 버전):
 
-- **Design changes:** "Run `/propagate-design-change [path]` on the affected design document to find downstream impacts before making changes."
+- **Design changes:** "영향받는 GDD (`design/gdd/*.md`) 의 §6 Dependencies 섹션을 확인하여 하위 시스템 영향 파악 후 변경."
 - **Balance adjustments:** "Run `/balance-check [system]` to verify the full balance picture before tuning values."
-- **Bugs:** "Use `/bug-report` to formally track these."
-- **Polish items:** "Add to the polish backlog in `production/` when the team reaches that phase."
+- **Bugs:** "`knowledge_base/Raw/` 또는 TODO 목록에 기록. 이 템플릿엔 `/bug-report` 미포함."
+- **Polish items:** "`docs/PLAN.md` 의 향후 Phase 로 이월."
 
 ---
 
@@ -142,5 +142,6 @@ If yes, write the file, creating the directory if needed.
 Verdict: **COMPLETE** — playtest report generated.
 
 - Act on the highest-priority finding category first.
-- After addressing design changes: re-run `/design-review` on the updated GDD.
-- After fixing bugs: re-run `/bug-triage` to update priorities.
+- After addressing design changes: GDD 의 §6 Dependencies 로 하위 영향 확인.
+- After fixing bugs: 수정사항을 `tests/` 에 regression test 로 고정.
+- At milestone: `/retrospective` 로 누적 발견사항 회고.

@@ -5,6 +5,8 @@ paths:
 
 # Shader Code Standards
 
+> 이 파일은 에이전트 `godot-shader-specialist` 가 `assets/shaders/**` 변경 시 자동 검토하는 룰.
+
 All shader files in `assets/shaders/` must follow these standards to maintain
 visual quality, performance, and cross-platform compatibility.
 

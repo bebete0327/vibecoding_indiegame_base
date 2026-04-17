@@ -23,6 +23,8 @@
 
 자세한 내용은 [`CLAUDE.md`](../CLAUDE.md) 의 "Vibe Coding Workflow" 와 [CCGS 통합 가이드](../knowledge_base/Wiki/ccgs-integration.md) 참조.
 
+> **어떤 플로우를 써야 할지 막막하면**: [docs/WORKFLOW.md](WORKFLOW.md) 의 결정 트리 — 변경 크기/영향/UX 영향에 따라 `/quick-design` / `PLAN.md` / 전체 GDD 중 골라줌.
+
 ---
 
 ## 2. 2D 게임 시작

@@ -196,26 +196,18 @@ If the user selects B, C, or D, make the revision, then use `AskUserQuestion` ag
 
 Repeat until the user selects [A] Lock these in.
 
-**Review mode check** — apply before spawning CD-PILLARS and AD-CONCEPT-VISUAL:
-- `solo` → skip both. Note: "CD-PILLARS skipped — Solo mode. AD-CONCEPT-VISUAL skipped — Solo mode." Proceed to Phase 5.
-- `lean` → skip both (not PHASE-GATEs). Note: "CD-PILLARS skipped — Lean mode. AD-CONCEPT-VISUAL skipped — Lean mode." Proceed to Phase 5.
-- `full` → spawn as normal.
+**Review mode check** — 이 템플릿 기본값은 `solo` (production/review-mode.txt). 솔로에선 모든 게이트 스킵:
+- `solo` (기본) → CD-PILLARS 와 AD-CONCEPT-VISUAL 둘 다 스킵. 시각적 식별성은 사용자가 직접 결정하도록 대화로 물어보기만.
+- `lean` → 동일 (PHASE-GATE 아님).
+- `full` → 아래 스폰 수행. **주의**: 이 템플릿은 `art-director` 에이전트를 포팅하지 않았으므로 `full` 모드에서도 AD-CONCEPT-VISUAL 은 현재 작동 안 함. 필요 시 CCGS 원본에서 `art-director.md` 이식.
 
-**After pillars and anti-pillars are agreed, spawn BOTH `creative-director` AND `art-director` via Task in parallel before moving to Phase 5. Issue both Task calls simultaneously — do not wait for one before starting the other.**
+**솔로/린 기본 흐름**: 필라 세트를 제시하고 AskUserQuestion 으로 확정. 시각 방향은 사용자에게 직접 2-3 옵션을 제시하고 선택받음 (art-director 없이).
 
-- **`creative-director`** — gate **CD-PILLARS** (`.claude/docs/director-gates.md`)
-  Pass: full pillar set with design tests, anti-pillars, core fantasy, unique hook.
+**Full 모드 분기** (필요 시):
+- `creative-director` 스폰 — gate **CD-PILLARS** (.claude/docs/director-gates.md). Pass: 필라 세트, 안티필라, 코어 판타지, 유니크 훅.
+- `art-director` 스폰 — **이 템플릿엔 없음**. 이식 전까지 사용자가 직접 결정.
 
-- **`art-director`** — gate **AD-CONCEPT-VISUAL** (`.claude/docs/director-gates.md`)
-  Pass: game concept elevator pitch, full pillar set with design tests, target platform (if known), any reference games or visual touchstones the user mentioned.
-
-Collect both verdicts, then present them together using a two-tab `AskUserQuestion`:
-- Tab **"Pillars"**: present creative-director feedback. Options mirror the standard CD-PILLARS handling — `Lock in as-is` / `Revise [specific pillar]` / `Discuss further`.
-- Tab **"Visual anchor"**: present the art-director's 2-3 named visual direction options. Options: each named direction (one per option) + `Combine elements across directions` + `Describe my own direction`.
-
-The user's selected visual anchor (the named direction or their custom description) is stored as the **Visual Identity Anchor** — it will be written into the game-concept document and becomes the foundation of the art bible.
-
-If the creative-director returns CONCERNS or REJECT on pillars, resolve pillar issues before asking for the visual anchor selection — visual direction should flow from confirmed pillars.
+선택된 시각 방향은 **Visual Identity Anchor** 로 게임 컨셉 문서에 기록.
 
 ---
 
@@ -254,27 +246,12 @@ Ground the concept in reality:
 - **Biggest risks**: Technical risks, design risks, market risks
 - **Scope tiers**: What's the full vision vs. what ships if time runs out?
 
-**Review mode check** — apply before spawning TD-FEASIBILITY:
-- `solo` → skip. Note: "TD-FEASIBILITY skipped — Solo mode." Proceed directly to scope tier definition.
-- `lean` → skip (not a PHASE-GATE). Note: "TD-FEASIBILITY skipped — Lean mode." Proceed directly to scope tier definition.
-- `full` → spawn as normal.
+**Review mode check** — 솔로/린 기본값은 TD-FEASIBILITY + PR-SCOPE 게이트 스킵.
+- `solo` (기본) → 둘 다 스킵. 사용자에게 식별된 기술 리스크/스코프 티어를 제시하고 조정 여부 직접 확인.
+- `lean` → 동일.
+- `full` → 분기 실행 (`technical-director` 는 포팅됨, `producer` 는 **이 템플릿에 없음** — 필요 시 CCGS 원본에서 이식).
 
-**After identifying biggest technical risks, spawn `technical-director` via Task using gate TD-FEASIBILITY (`.claude/docs/director-gates.md`) before scope tiers are defined.**
-
-Pass: core loop description, platform target, engine choice (or "undecided"), list of identified technical risks.
-
-Present the assessment to the user. If HIGH RISK, offer to revisit scope before finalising. If CONCERNS, note them and continue.
-
-**Review mode check** — apply before spawning PR-SCOPE:
-- `solo` → skip. Note: "PR-SCOPE skipped — Solo mode." Proceed to document generation.
-- `lean` → skip (not a PHASE-GATE). Note: "PR-SCOPE skipped — Lean mode." Proceed to document generation.
-- `full` → spawn as normal.
-
-**After scope tiers are defined, spawn `producer` via Task using gate PR-SCOPE (`.claude/docs/director-gates.md`).**
-
-Pass: full vision scope, MVP definition, timeline estimate, team size.
-
-Present the assessment to the user. If UNREALISTIC, offer to adjust the MVP definition or scope tiers before writing the document.
+**솔로/린 기본 흐름**: 기술 리스크를 리스트로 제시 + 스코프 티어 (MVP/Full) 제시 → AskUserQuestion 으로 "이 스코프로 진행할까요?" 확인 후 문서 작성.
 
 ---
 
@@ -306,20 +283,17 @@ If yes, generate the document using the template at `.claude/docs/templates/game
 
 **Scope consistency rule**: The "Estimated Scope" field in the Core Identity table must match the full-vision timeline from the Scope Tiers section — not just say "Large (9+ months)". Write it as "Large (X–Y months, solo)" or "Large (X–Y months, team of N)" so the summary table is accurate.
 
-6. **Suggest next steps** (in this order — this is the professional studio
-   pre-production pipeline). List ALL steps — do not abbreviate or truncate:
-   1. "Run `/setup-engine` to configure the engine and populate version-aware reference docs"
-   2. "Run `/art-bible` to create the visual identity specification — do this BEFORE writing GDDs. The art bible gates asset production and shapes technical architecture decisions (rendering, VFX, UI systems)."
-   3. "Use `/design-review design/gdd/game-concept.md` to validate concept completeness before going downstream"
-   4. "Discuss vision with the `creative-director` agent for pillar refinement"
-   5. "Decompose the concept into individual systems with `/map-systems` — maps dependencies, assigns priorities, and creates the systems index"
-   5. "Author per-system GDDs with `/design-system` — guided, section-by-section GDD writing for each system identified in step 4"
-   6. "Plan the technical architecture with `/create-architecture` — produces the master architecture blueprint and Required ADR list"
-   7. "Record key architectural decisions with `/architecture-decision (×N)` — write one ADR per decision in the Required ADR list from `/create-architecture`"
-   8. "Validate readiness to advance with `/gate-check` — phase gate before committing to production"
-   9. "Prototype the riskiest system with `/prototype [core-mechanic]` — validate the core loop before full implementation"
-   10. "Run `/playtest-report` after the prototype to validate the core hypothesis"
-   11. "If validated, plan the first sprint with `/sprint-plan new`"
+6. **Suggest next steps** — **솔로 바이브코딩 템플릿 버전** (원본의 pre-production pipeline 중 이 템플릿에서 실행 가능한 것만):
+   1. "Copy `docs/GDD_TEMPLATE.md` → `design/gdd/<system>.md` for each major system"
+   2. "Discuss the pillars with the `creative-director` agent via Task tool if deeper review wanted"
+   3. "Draft `docs/RESEARCH.md` for the first system (related code, constraints)"
+   4. "Draft `docs/PLAN.md` with Phase-by-Phase implementation plan and get user approval"
+   5. "Start Phase 1 — implement, then run `/code-review` before commit"
+   6. "After a playable slice: `/playtest-report` to structure findings"
+   7. "If balance values emerge: `/balance-check` after tuning"
+   8. "At milestone: `/retrospective` + update `knowledge_base/Wiki/`"
+
+   > **제거된 원본 단계들** (이 템플릿엔 없음): `/setup-engine`, `/art-bible`, `/map-systems`, `/design-system`, `/create-architecture`, `/architecture-decision`, `/gate-check`, `/prototype`, `/sprint-plan`. 필요 시 [CCGS 원본](https://github.com/) 에서 추가 이식.
 
 7. **Output a summary** with the chosen concept's elevator pitch, pillars,
    primary player type, engine recommendation, biggest risk, and file path.
@@ -339,12 +313,13 @@ append this notice to the current response before continuing:
 
 ---
 
-## Recommended Next Steps
+## Recommended Next Steps (솔로 바이브코딩)
 
-After the game concept is written, follow the pre-production pipeline in order:
-1. `/setup-engine` — configure the engine and populate version-aware reference docs
-2. `/art-bible` — establish visual identity before writing any GDDs
-3. `/map-systems` — decompose the concept into individual systems with dependencies
-4. `/design-system [first-system]` — author per-system GDDs in dependency order
-5. `/create-architecture` — produce the master architecture blueprint
-6. `/gate-check pre-production` — validate readiness before committing to production
+After the game concept is written:
+1. Copy `docs/GDD_TEMPLATE.md` to `design/gdd/<system>.md` for each major system
+2. `docs/RESEARCH.md` — analyze existing code/constraints for the first system
+3. `docs/PLAN.md` — Phase-based implementation plan (user approval required)
+4. Implement Phase 1 → `/code-review` → commit
+5. At playable slice: `/playtest-report`; at milestone: `/retrospective`
+
+See [docs/WORKFLOW.md](../../../docs/WORKFLOW.md) for the decision tree on when to use GDD vs quick-design vs inline implementation.

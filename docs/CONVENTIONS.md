@@ -1,5 +1,17 @@
 # GDScript Coding Conventions
 
+> 이 문서는 **사람이 읽는 한국어 요약**. 에이전트가 자동 검토 시 사용하는 **머신-리더블 룰**은 [`.claude/rules/`](../.claude/rules/) 에 있습니다.
+>
+> | 범주 | 사람용 (이 문서) | 에이전트용 |
+> |------|----------------|-----------|
+> | 게임플레이 코드 | "Type Hints (필수)" 섹션 | [.claude/rules/gameplay-code.md](../.claude/rules/gameplay-code.md) — 하드코딩 금지, delta 사용, DI |
+> | 테스트 | Testing (GUT) in [CLAUDE.md](../CLAUDE.md) | [.claude/rules/test-standards.md](../.claude/rules/test-standards.md) — naming, AAA 패턴 |
+> | UI 코드 | (이 문서의 Naming) | [.claude/rules/ui-code.md](../.claude/rules/ui-code.md) — UI ↔ 게임 상태 분리 |
+> | 데이터 파일 | — | [.claude/rules/data-files.md](../.claude/rules/data-files.md) — `assets/data/` 규약 |
+> | 셰이더 | — | [.claude/rules/shader-code.md](../.claude/rules/shader-code.md) |
+>
+> **충돌 시 우선순위**: 이 문서 (CONVENTIONS) 가 프로젝트 스타일 결정권자. `.claude/rules/*` 은 이 문서에 맞게 조정됨. 차이 발견 시 Issue 로 보고.
+
 ## Quick Reference
 
 ### Naming Rules

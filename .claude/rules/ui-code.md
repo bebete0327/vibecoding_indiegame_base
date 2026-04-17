@@ -7,6 +7,9 @@ paths:
 
 # UI Code Rules
 
+> 인간-리더블 컨벤션: [docs/CONVENTIONS.md](../../docs/CONVENTIONS.md)
+> 이 파일은 에이전트가 `scenes/ui/**` · `scripts/ui/**` 변경 시 자동 검토하는 룰.
+
 - UI must NEVER own or directly modify game state — display only, use commands/events to request changes
 - All UI text must go through the localization system — no hardcoded user-facing strings
 - Support both keyboard/mouse AND gamepad input for all interactive elements

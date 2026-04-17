@@ -5,6 +5,9 @@ paths:
 
 # Data File Rules
 
+> 참조: [assets/README.md](../../assets/README.md), [docs/GDD_TEMPLATE.md §7 Tuning Knobs](../../docs/GDD_TEMPLATE.md)
+> 이 파일은 에이전트가 `assets/data/**` 변경 시 자동 검토하는 룰.
+
 - All JSON files must be valid JSON — broken JSON blocks the entire build pipeline
 - File naming: lowercase with underscores only, following `[system]_[name].json` pattern
 - Every data file must have a documented schema (either JSON Schema or documented in the corresponding design doc)
