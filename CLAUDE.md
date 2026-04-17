@@ -168,7 +168,7 @@ knowledge_base/      → LLM 지식 위키
 
 ## Screenshot Capture (AI 피드백용)
 `scripts/utils/screenshot_capture.gd` 는 이미 **Autoload로 등록되어 있습니다** (`project.godot`의 `[autoload]` 섹션).
-- F12 키로 스크린샷 캡처
+- F9 키로 스크린샷 캡처 (F12 는 브라우저/OS 과 충돌 가능)
 - `user://screenshots/`에 저장
 - 캡처된 이미지를 Claude에게 보여주어 UI/물리 버그 피드백 가능
 

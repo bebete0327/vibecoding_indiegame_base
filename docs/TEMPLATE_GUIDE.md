@@ -70,7 +70,7 @@ Main (Node)                       ← scenes/main.tscn (기본)
 ### 4.1 기본 제공 (템플릿에 사전 등록됨)
 | Autoload | 파일 | 용도 |
 |----------|------|------|
-| `Screenshot_Capture` | `scripts/utils/screenshot_capture.gd` | F12 키로 스크린샷 저장 (AI 피드백용) |
+| `Screenshot_Capture` | `scripts/utils/screenshot_capture.gd` | F9 키로 스크린샷 저장 (AI 피드백용) |
 | `EventBus` | `scripts/autoload/event_bus.gd` | 글로벌 시그널 허브 |
 | `GameManager` | `scripts/autoload/game_manager.gd` | 게임 상태/씬 전환/점수 |
 | `AudioManager` | `scripts/autoload/audio_manager.gd` | BGM 크로스페이드 + SFX 풀 |

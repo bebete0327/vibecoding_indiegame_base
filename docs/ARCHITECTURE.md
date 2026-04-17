@@ -3,8 +3,31 @@
 ## Engine Configuration
 - **Godot**: 4.6.2
 - **Language**: GDScript (typed)
-- **Renderer**: Mobile (OpenGL ES 3.0 / Vulkan Mobile)
+- **Renderer**: Mobile (기본값) — [Renderer 선택](#renderer-선택) 참조
 - **Physics**: Jolt Physics (3D)
+
+## Renderer 선택
+
+템플릿 기본값은 **Mobile** 렌더러 + **D3D12** 드라이버 (Windows 기준).
+게임 종류에 따라 변경을 권장합니다:
+
+| 렌더러 | 권장 사례 | 성능 |
+|--------|-----------|------|
+| **Mobile** (기본) | 모바일 출시, 저사양 호환, 픽셀 아트 2D | GLES3 / Vulkan Mobile |
+| **Forward+** | 데스크톱 3D, 고급 라이팅 필요 | Vulkan Desktop, 가장 많은 기능 |
+| **Compatibility** | WebGL, 구형 하드웨어 | GLES3, 기능 제한 |
+
+### 변경 방법
+1. `project.godot` 의 `[rendering]` 섹션 수정:
+   ```ini
+   [rendering]
+   renderer/rendering_method="forward_plus"    # 또는 "mobile", "gl_compatibility"
+   ```
+2. `config/features` 의 Mobile/Forward Plus 태그도 맞추기 (에디터에서 자동 처리됨)
+3. 드라이버 (`rendering_device/driver.windows`) 는 Forward+ / Mobile 은 `vulkan` 또는 `d3d12` 권장, Compatibility 는 `opengl3`
+
+### macOS / Linux 주의
+현재 `rendering_device/driver.windows="d3d12"` 로 Windows 에만 적용됩니다. 다른 플랫폼에서는 Vulkan 이 기본으로 동작하므로 별도 설정 불필요.
 
 ## Project Architecture
 

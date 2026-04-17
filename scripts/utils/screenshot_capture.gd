@@ -34,7 +34,10 @@ func capture_region(rect: Rect2i, filename: String = "") -> String:
 	print("[Screenshot] Region saved: %s" % path)
 	return path
 
-## F12 키로 빠른 캡처
+## F9 키로 빠른 캡처 (F12 는 브라우저/OS 개발자 도구와 충돌하므로 F9 사용).
+## 변경이 필요하면 아래 keycode 를 KEY_F1~KEY_F12 중 원하는 값으로 바꾸세요.
+const CAPTURE_KEY: Key = KEY_F9
+
 func _input(event: InputEvent) -> void:
-	if event is InputEventKey and event.pressed and event.keycode == KEY_F12:
+	if event is InputEventKey and event.pressed and event.keycode == CAPTURE_KEY:
 		capture()

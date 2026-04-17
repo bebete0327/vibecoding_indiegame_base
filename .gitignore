@@ -6,8 +6,9 @@
 export_presets.cfg
 export_presets.cfg.backup
 
-# Knowledge Base raw files (personal/unprocessed)
-knowledge_base/Raw/
+# Knowledge Base raw files (personal/unprocessed) — 폴더는 유지, 내용만 무시
+knowledge_base/Raw/*
+!knowledge_base/Raw/.gitkeep
 
 # Claude Code
 .claude/plans/

@@ -113,3 +113,29 @@ func _process(delta):
 # 미사용 시그널 연결 방치
 # 씬에서 연결한 시그널은 반드시 핸들러 구현
 ```
+
+## Variant 추론 경고 (Warnings as Errors)
+
+Godot 4 는 Variant 에서 타입 추론을 경고로 띄우며, 이 템플릿은 경고를 에러로 취급합니다. `:=` 연산자를 Variant 값에 쓰면 크래시합니다.
+
+```gdscript
+# Bad — value 가 Variant 이면 old 도 Variant 로 추론되어 경고
+var old := some_variant_value
+
+# Good — Variant 를 명시
+var old: Variant = some_variant_value
+```
+
+Variant 를 사용해야 하는 전형적인 상황: `Dictionary.get()`, `JSON.parse_string()`, `Resource` 의 동적 프로퍼티.
+
+## Autoload 스크립트 예외
+
+Autoload 로 등록되는 스크립트는 `class_name` 을 선언하지 **않습니다**. Autoload 이름이 전역 변수로 등록되면서 동명의 `class_name` 과 충돌합니다.
+
+```gdscript
+# scripts/autoload/event_bus.gd — Autoload 이름: EventBus
+# class_name EventBus     # Bad — 충돌
+extends Node               # Good — class_name 생략
+```
+
+호출은 Autoload 이름으로: `EventBus.game_started.emit()`
