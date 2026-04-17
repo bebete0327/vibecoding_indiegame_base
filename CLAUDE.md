@@ -27,7 +27,7 @@
 - 구현 전 반드시 `docs/PLAN.md`에 계획 작성 후 **사용자 승인** 대기
 - 새 스크립트 생성 시 `scripts/` 폴더에 배치
 - 새 씬 생성 시 `scenes/` 폴더에 배치
-- 모든 GDScript에 `class_name` 선언
+- 모든 GDScript에 `class_name` 선언 (**예외**: Autoload 스크립트 — Autoload 이름과 전역 클래스 이름 충돌 방지)
 - 시그널 사용 시 타입 힌팅 포함
 - 새 기능 구현 시 GUT 테스트도 함께 작성 (`tests/` 폴더)
 - 커밋 전 headless 검증 실행
