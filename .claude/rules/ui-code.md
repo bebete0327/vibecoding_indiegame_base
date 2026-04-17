@@ -1,6 +1,8 @@
 ---
 paths:
-  - "src/ui/**"
+  - "scenes/ui/**"
+  - "scripts/ui/**"
+  - "scripts/components/ui_*.gd"
 ---
 
 # UI Code Rules

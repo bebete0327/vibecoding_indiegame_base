@@ -179,32 +179,40 @@ knowledge_base/      → LLM 지식 위키
 
 ## Skills (슬래시 명령)
 
-### 프로젝트 내장 — `.claude/skills/` (CCGS 에서 이식, 15개)
-| 명령어 | 용도 |
-|--------|------|
-| `/brainstorm` | 게임 컨셉 아이데이션 (구조화 질의) |
-| `/quick-design` | 경량 디자인 스펙 (4시간 이하 변경) |
-| `/scope-check` | 스코프 크립 탐지 + 컷 추천 |
-| `/balance-check` | 밸런스 데이터/수식 이상치 분석 |
-| `/design-review` | GDD 품질 검토 |
-| `/code-review` | SOLID + 엔진 패턴 코드 리뷰 |
-| `/smoke-check` | 커밋 전 기본 런/빌드 확인 |
-| `/perf-profile` | 프레임/메모리 성능 프로파일 |
-| `/tech-debt` | 기술 부채 카탈로그 |
-| `/retrospective` | 회고 — 잘됨/안됨/액션 |
-| `/bug-report` · `/bug-triage` | 버그 보고/우선순위화 |
-| `/playtest-report` | 플레이테스트 노트 구조화 |
-| `/prototype` · `/sprint-plan` | 프로토타이핑 / 스프린트 계획 |
+### 프로젝트 내장 — `.claude/skills/` (CCGS 에서 이식, 솔로 인디 9개)
+| 명령어 | 용도 | 분류 |
+|--------|------|------|
+| `/brainstorm` | 게임 컨셉 아이데이션 (구조화 질의) | HEAVY |
+| `/quick-design` | 경량 디자인 스펙 (4시간 이하 변경) | VIBE |
+| `/balance-check` | 밸런스 데이터/수식 이상치 분석 | HEAVY |
+| `/code-review` | SOLID + 엔진 패턴 코드 리뷰 | VIBE |
+| `/smoke-check` | 커밋 전 기본 런/빌드 확인 | VIBE |
+| `/perf-profile` | 프레임/메모리 성능 프로파일 | HEAVY |
+| `/tech-debt` | 기술 부채 카탈로그 | VIBE |
+| `/retrospective` | 회고 — 잘됨/안됨/액션 | VIBE |
+| `/playtest-report` | 플레이테스트 노트 구조화 | HEAVY |
+
+> **제거됨 (팀 워크플로 가정, 솔로에 과함)**: `/scope-check`, `/design-review`, `/sprint-plan`, `/bug-report`, `/bug-triage`, `/prototype`. 필요 시 [CCGS 원본](https://github.com/)에서 개별 이식.
 
 **사용 예**: `/code-review scripts/autoload/game_manager.gd`
 통합 가이드: [knowledge_base/Wiki/ccgs-integration.md](knowledge_base/Wiki/ccgs-integration.md)
 
-### 전문 에이전트 — `.claude/agents/` (Task 도구로 위임)
+### 전문 에이전트 — `.claude/agents/` (Task 도구로 위임, 10개)
+**Godot 엔진 (4)**:
 - `godot-specialist` — 씬/노드 아키텍처, 엔진 전반
 - `godot-gdscript-specialist` — GDScript 코드 품질, 시그널
 - `godot-shader-specialist` — `.gdshader` 작성/최적화
 - `godot-gdextension-specialist` — 성능 핫스팟의 C++/Rust
-- `creative-director`, `technical-director`, `game-designer` — 디자인/아키텍처 리뷰
+
+**디자인/기술 리드 (3)**:
+- `creative-director` — 게임 필라, 플레이어 경험 검토
+- `technical-director` — 아키텍처 큰 그림, 기술 선택
+- `game-designer` — 메카닉 설계, GDD 작성
+
+**리뷰/QA/퍼포먼스 (3)** — `/code-review`, `/perf-profile` 스킬이 스폰:
+- `lead-programmer` — SOLID/아키텍처 코드 리뷰 리드
+- `qa-tester` — 테스트 케이스 실행 가능성 검토
+- `performance-analyst` — 프로파일링, 병목 분석
 
 ### 외부 — gstack (선택, `~/.claude/skills/gstack/`)
 `docs/SETUP.md` 참조. **CCGS 스킬과 중복되지 않는 것**만 선별 사용 권장:
