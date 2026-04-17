@@ -19,7 +19,16 @@ signal damaged(amount: int)
 signal healed(amount: int)
 signal died
 
-@export var max_health: int = 100
+## max_health 런타임 변경 시 current_health 도 자동 clamp (파워업/디버프 대응).
+@export var max_health: int = 100:
+	set(value):
+		max_health = maxi(value, 1)
+		if current_health > max_health:
+			current_health = max_health
+		else:
+			# max 만 바뀌고 current 는 그대로여도 UI 갱신 필요
+			health_changed.emit(current_health, max_health)
+
 @export var start_full: bool = true
 @export var invulnerable: bool = false
 
