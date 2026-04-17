@@ -16,7 +16,7 @@ var value: Variant:
 	set(new_value):
 		if typeof(new_value) == typeof(value) and new_value == value:
 			return
-		var old := value
+		var old: Variant = value
 		value = new_value
 		changed.emit(new_value, old)
 

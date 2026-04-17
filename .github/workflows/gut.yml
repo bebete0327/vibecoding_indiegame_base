@@ -1,0 +1,67 @@
+name: GUT Tests
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+
+concurrency:
+  group: gut-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Godot headless + GUT
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      GODOT_VERSION: "4.6.2"
+      GODOT_STATUS: "stable"
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Cache Godot binary
+        id: cache-godot
+        uses: actions/cache@v4
+        with:
+          path: ~/godot
+          key: godot-${{ env.GODOT_VERSION }}-${{ env.GODOT_STATUS }}-linux
+
+      - name: Download Godot
+        if: steps.cache-godot.outputs.cache-hit != 'true'
+        run: |
+          set -euxo pipefail
+          mkdir -p ~/godot
+          cd ~/godot
+          URL="https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-${GODOT_STATUS}/Godot_v${GODOT_VERSION}-${GODOT_STATUS}_linux.x86_64.zip"
+          curl -L -o godot.zip "$URL"
+          unzip -q godot.zip
+          mv Godot_v${GODOT_VERSION}-${GODOT_STATUS}_linux.x86_64 godot
+          chmod +x godot
+
+      - name: Export GODOT_PATH
+        run: echo "GODOT_PATH=$HOME/godot/godot" >> "$GITHUB_ENV"
+
+      - name: Import assets (first load)
+        run: |
+          "$GODOT_PATH" --headless --path . --import --quit 2>&1 | tail -50 || true
+          "$GODOT_PATH" --headless --path . -e --quit 2>&1 | tail -50
+
+      - name: Run GUT
+        run: |
+          "$GODOT_PATH" -d -s --path . addons/gut/gut_cmdln.gd \
+            -gdir=res://tests -ginclude_subdirs -gexit \
+            -gjunit_xml_file=res://gut_results.xml
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gut-results
+          path: gut_results.xml
+          if-no-files-found: ignore
