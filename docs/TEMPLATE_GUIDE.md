@@ -67,24 +67,51 @@ Main (Node)                       ← scenes/main.tscn (기본)
 
 ## 4. Autoload(전역 서비스) 추가
 
-### 4.1 기본 제공
-- `Screenshot_Capture` — F12 키로 스크린샷 저장 (`scripts/utils/screenshot_capture.gd`)
+### 4.1 기본 제공 (템플릿에 사전 등록됨)
+| Autoload | 파일 | 용도 |
+|----------|------|------|
+| `Screenshot_Capture` | `scripts/utils/screenshot_capture.gd` | F12 키로 스크린샷 저장 (AI 피드백용) |
+| `EventBus` | `scripts/autoload/event_bus.gd` | 글로벌 시그널 허브 |
+| `GameManager` | `scripts/autoload/game_manager.gd` | 게임 상태/씬 전환/점수 |
+| `AudioManager` | `scripts/autoload/audio_manager.gd` | BGM 크로스페이드 + SFX 풀 |
+| `SaveManager` | `scripts/autoload/save_manager.gd` | JSON 기반 세이브/로드 |
+| `ServiceLocator` | `scripts/autoload/service_locator.gd` | 런타임 서비스 등록/조회 |
+
+> **주의**: Autoload 스크립트는 `class_name` 을 선언하지 않습니다 (Autoload 이름과 전역 클래스 이름이 충돌). 호출은 그냥 `EventBus.game_started.emit()` 처럼 Autoload 이름으로 합니다.
 
 ### 4.2 새 Autoload 추가
-1. `scripts/autoload/` 폴더 생성 (없으면)
-2. 예: `scripts/autoload/event_bus.gd`
-   ```gdscript
-   class_name EventBus
-   extends Node
-
-   signal game_started
-   signal game_over
-   signal score_changed(new_score: int)
-   ```
-3. Godot 에디터 → Project Settings → Autoload → 추가 (이름: `EventBus`, 경로: 스크립트)
-4. 어디서든 호출: `EventBus.game_started.emit()`
+1. `scripts/autoload/<your_autoload>.gd` 를 생성 (기존 파일 참고)
+2. Godot 에디터 → Project Settings → Autoload → 추가 (이름, 경로 입력)
+3. 어디서든 호출: `<Autoload이름>.method()`
 
 패턴 레퍼런스: `knowledge_base/Wiki/gdscript-patterns.md`
+
+---
+
+## 4.5 Input Map (사전 등록된 액션)
+
+템플릿에는 2D/3D 공통으로 쓰이는 액션이 이미 등록되어 있습니다:
+
+| 액션 | 키보드 | 게임패드 |
+|------|--------|----------|
+| `move_left` / `move_right` / `move_up` / `move_down` | WASD + 화살표키 | 좌 스틱 |
+| `jump` | Space | A (Xbox) / Cross (PS) |
+| `interact` | E | X (Xbox) / Square (PS) |
+| `attack` | 마우스 좌클릭 | Y (Xbox) / Triangle (PS) |
+| `pause` | Esc | Select/Back |
+
+사용 예:
+```gdscript
+func _physics_process(delta: float) -> void:
+    var dir := Input.get_vector(&"move_left", &"move_right", &"move_up", &"move_down")
+    velocity = dir * speed
+
+func _unhandled_input(event: InputEvent) -> void:
+    if event.is_action_pressed(&"pause"):
+        GameManager.toggle_pause()
+```
+
+변경: Project Settings → Input Map 에서 수정.
 
 ---
 
