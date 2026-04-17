@@ -158,6 +158,21 @@ MCP 서버로 Godot 에디터를 Claude Code와 연동:
 3d/physics_engine="Jolt Physics"
 ```
 
+### 4-C. Git LFS (대용량 바이너리 추적)
+
+템플릿의 `.gitattributes` 는 `.png/.wav/.ogg/.glb/.fbx` 등을 LFS 로 추적합니다. LFS 가 설치되어 있지 않으면 이 규칙은 무시되고 일반 Git 객체로 저장되므로 레포가 비대해집니다.
+
+```bash
+# 설치 (Git 설치 시 함께 설치되었다면 생략 가능)
+git lfs install
+
+# 확인
+git lfs version
+git lfs track    # 현재 추적 패턴 목록
+```
+
+LFS 가 필요 없는 소규모 프로젝트라면 `.gitattributes` 의 LFS 섹션을 주석 처리하거나 삭제하세요.
+
 ---
 
 ## 5. 첫 실행 검증 (설치 완료 체크)
