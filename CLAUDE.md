@@ -148,8 +148,13 @@ assets/audio/        → 사운드/음악
 assets/fonts/        → 폰트
 addons/              → Godot 플러그인 (GUT 등)
 tests/               → GUT 테스트 스크립트
-docs/                → 문서 (SETUP, TEMPLATE_GUIDE, RESEARCH, PLAN, ARCHITECTURE, CONVENTIONS)
+docs/                → 문서 (SETUP, TEMPLATE_GUIDE, RESEARCH, PLAN, ARCHITECTURE, CONVENTIONS, GDD_TEMPLATE, UPGRADE, COLLABORATIVE-DESIGN-PRINCIPLE)
+docs/engine-reference/godot/  → Godot 4.6 API 변경사항 (LLM 지식갭 보완)
+design/gdd/          → 게임 디자인 문서 (GDD_TEMPLATE 참조하여 작성)
 knowledge_base/      → LLM 지식 위키
+.claude/agents/      → 전문 에이전트 (godot-*, creative/technical director)
+.claude/skills/      → 슬래시 명령 스킬 (/brainstorm, /code-review 등)
+.claude/rules/       → 파일 패턴별 코드 규칙 (gameplay-code, test-standards 등)
 ```
 
 ## Testing (GUT)
@@ -172,21 +177,37 @@ knowledge_base/      → LLM 지식 위키
 - `user://screenshots/`에 저장
 - 캡처된 이미지를 Claude에게 보여주어 UI/물리 버그 피드백 가능
 
-## gstack Skills
-`~/.claude/skills/gstack/` 에 설치 필요 (`docs/SETUP.md` 참조).
+## Skills (슬래시 명령)
 
+### 프로젝트 내장 — `.claude/skills/` (CCGS 에서 이식, 15개)
 | 명령어 | 용도 |
 |--------|------|
-| `/office-hours` | 엔지니어링 상담 |
-| `/plan-ceo-review` | CEO 관점 제품 리뷰 |
-| `/plan-eng-review` | 아키텍처 리뷰 |
-| `/review` | 코드 리뷰 |
-| `/qa` | QA 테스트 |
-| `/cso` | 보안 감사 |
-| `/autoplan` | 자동 계획 수립 |
-| `/careful` | 신중 모드 |
-| `/learn` | 패턴 학습 |
-| `/retro` | 회고 |
+| `/brainstorm` | 게임 컨셉 아이데이션 (구조화 질의) |
+| `/quick-design` | 경량 디자인 스펙 (4시간 이하 변경) |
+| `/scope-check` | 스코프 크립 탐지 + 컷 추천 |
+| `/balance-check` | 밸런스 데이터/수식 이상치 분석 |
+| `/design-review` | GDD 품질 검토 |
+| `/code-review` | SOLID + 엔진 패턴 코드 리뷰 |
+| `/smoke-check` | 커밋 전 기본 런/빌드 확인 |
+| `/perf-profile` | 프레임/메모리 성능 프로파일 |
+| `/tech-debt` | 기술 부채 카탈로그 |
+| `/retrospective` | 회고 — 잘됨/안됨/액션 |
+| `/bug-report` · `/bug-triage` | 버그 보고/우선순위화 |
+| `/playtest-report` | 플레이테스트 노트 구조화 |
+| `/prototype` · `/sprint-plan` | 프로토타이핑 / 스프린트 계획 |
+
+**사용 예**: `/code-review scripts/autoload/game_manager.gd`
+통합 가이드: [knowledge_base/Wiki/ccgs-integration.md](knowledge_base/Wiki/ccgs-integration.md)
+
+### 전문 에이전트 — `.claude/agents/` (Task 도구로 위임)
+- `godot-specialist` — 씬/노드 아키텍처, 엔진 전반
+- `godot-gdscript-specialist` — GDScript 코드 품질, 시그널
+- `godot-shader-specialist` — `.gdshader` 작성/최적화
+- `godot-gdextension-specialist` — 성능 핫스팟의 C++/Rust
+- `creative-director`, `technical-director`, `game-designer` — 디자인/아키텍처 리뷰
+
+### 외부 — gstack (선택, `~/.claude/skills/gstack/`)
+`docs/SETUP.md` 참조. 주요: `/office-hours`, `/plan-ceo-review`, `/careful`, `/learn`
 
 ## Context Management
 - `/clear`: 작업 단위 변경 시 **반드시** 사용 (어텐션 희석 방지)

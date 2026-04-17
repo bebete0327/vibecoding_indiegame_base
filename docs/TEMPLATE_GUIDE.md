@@ -4,16 +4,24 @@
 
 ---
 
-## 1. 전체 흐름 (바이브코딩 루프)
+## 1. 전체 흐름 (바이브코딩 루프 + CCGS)
 
 ```
-  Brainstorm ──► Research ──► Plan ──► Implement ──► Test ──► Commit
-  (/office-    (RESEARCH.md) (PLAN.md,  (Phase 단위,  (GUT,    (git +
-   hours,                     승인 필수) Hook 자동     스크린샷) knowledge_
-   /plan-ceo)                            검증)                  base)
+  Brainstorm ──► Research ──► GDD ──► Plan ──► Implement ──► Review ──► Test ──► Commit
+  /brainstorm  RESEARCH.md   design/  PLAN.md  Phase 단위    /code-    GUT,     git +
+                             gdd/*.md 승인 필수 Hook 검증     review    screen   knowledge
+                                                             /scope-  shot     _base
+                                                             check
+                                                             /smoke-
+                                                             check
 ```
 
-자세한 내용은 [`CLAUDE.md`](../CLAUDE.md) 의 "Vibe Coding Workflow" 섹션 참조.
+- **Brainstorm** → `/brainstorm` 스킬 (구조화된 컨셉 탐구)
+- **GDD** → `docs/GDD_TEMPLATE.md` 를 복사해 `design/gdd/<system>.md` 로 저장 후 `/design-review`
+- **Review** → `/code-review`, `/scope-check`, `/smoke-check` 순으로 품질 게이트
+- **마일스톤** → `/retrospective` 로 회고
+
+자세한 내용은 [`CLAUDE.md`](../CLAUDE.md) 의 "Vibe Coding Workflow" 와 [CCGS 통합 가이드](../knowledge_base/Wiki/ccgs-integration.md) 참조.
 
 ---
 
