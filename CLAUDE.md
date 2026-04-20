@@ -231,11 +231,61 @@ knowledge_base/      → LLM 지식 위키
 ### Solo Review Mode (CCGS 디렉터 게이트)
 기본값: `solo` (`production/review-mode.txt` 에 저장). 스킬이 creative-director 등 게이트를 스폰하기 전 이 값을 확인하고 대부분 스킵합니다. 팀 모드가 필요하면 `production/review-mode.txt` 를 `lean` 또는 `full` 로 수정.
 
+## Autonomous Tool Usage (AI 자율 판단 지침)
+
+**사용자는 슬래시 명령이나 에이전트 이름을 외우고 싶어하지 않습니다.** 사용자가 자연어로 요구하면 **AI 가 스스로 판단해 해당 툴을 호출**합니다. 다음 매핑을 기본으로 따르되, 상황에 맞게 유연하게.
+
+### 사용자 자연어 → 자동 툴 호출
+
+| 사용자가 말하면 | AI 가 자동 실행 |
+|----------------|---------------|
+| "버그 있어" / "안 돼" / "이상해" | → `Task(qa-tester)` 로 재현 + 원인 분석, 이후 `/code-review` |
+| "느려" / "프레임 떨어져" / "렉" | → `Task(performance-analyst)` + `/perf-profile` |
+| "이런 게임 만들고 싶어" (큰 방향) | → `/brainstorm` 시작 |
+| "X 값 30 으로 바꿔줘" (간단 튜닝) | → 즉시 편집 + `/balance-check` 로 검증 |
+| "X 기능 추가하고 싶어" (4h 이하) | → `/quick-design` 으로 경량 스펙, 그 후 구현 |
+| "X 시스템 설계해줘" (1주 이상) | → `Task(game-designer)` 로 GDD 작성 |
+| "씬/노드 구조 어떻게?" | → `Task(godot-specialist)` |
+| "GDScript 코드 개선" | → `Task(godot-gdscript-specialist)` |
+| "셰이더 만들어줘" | → `Task(godot-shader-specialist)` |
+| "이거 C++ 로 빼야하나?" | → `Task(godot-gdextension-specialist)` |
+| "이 코드 맞게 짠 거야?" | → `/code-review` (lead-programmer + qa-tester 병렬 스폰) |
+| "필라 / 비전 검토" | → `Task(creative-director)` (비쌈, 큰 결정에만) |
+| "아키텍처 결정해줘" | → `Task(technical-director)` (비쌈, 큰 결정에만) |
+| "테스트 좀 돌려봐" | → `/smoke-check` |
+| "커밋 전 점검" | → `/smoke-check` + `/code-review` (변경 파일 3개 이상이면) |
+| "기술 부채 정리해야겠어" | → `/tech-debt` |
+| "마일스톤 끝났어" / "이번 달 돌아보자" | → `/retrospective` |
+| "플레이해봤는데..." (테스트 노트) | → `/playtest-report analyze` |
+| "이 코드베이스 구조가 뭐야?" | → `graphify-out/graph.json` 존재하면 `graphify query`, 없으면 `/graphify .` 제안 |
+
+### AI 가 능동적으로 제안할 타이밍
+
+- **Phase 완료 시** → 자동 `/smoke-check` + `git status` 확인
+- **3개 파일 이상 편집 후 커밋 직전** → 자동 `/code-review` 후 커밋
+- **GDD 작성 후** → GDD 의 Tuning Knobs 섹션 자동 스캔 → `/balance-check` 제안
+- **새 Autoload 추가 시** → `project.godot` 자동 업데이트 제안
+- **스크린샷 저장 시** → AI 가 이미지 확인 후 UI/물리 이슈 설명
+
+### 자동화하지 말 것
+
+- `/clear` — **절대 자동 실행 금지** (컨텍스트 손실)
+- `/compact` — 마일스톤에서만, 사용자 승인 필수
+- `/brainstorm` — 컨셉 완전 부재일 때만. 이미 방향 있으면 `/quick-design`
+- `creative-director`, `technical-director` — 비쌈. 진짜 큰 결정에만
+- 파괴적 git 작업 (`push --force origin main`, `reset --hard origin/*`) — settings.json 에 deny 리스트
+
+### Permissions 모드
+
+`.claude/settings.json` permissions.allow 는 `Bash(*)`, `Task(*)` 등 광범위 개방. deny 리스트로 파괴적 명령만 차단. **일반 작업은 승인 프롬프트 없이 자동 진행**.
+
+---
+
 ## Context Management
-- `/clear`: 작업 단위 변경 시 **반드시** 사용 (어텐션 희석 방지)
-- `/compact`: 마일스톤에서만 (기획 완료, 디버깅 종료)
+- `/clear`: 작업 단위 변경 시 사용자 재량. **AI 가 자동 실행 금지**
+- `/compact`: 마일스톤에서만, 사용자 승인 필요
 - 하나의 세션에서 3개 이상의 기능 구현 금지
-- 역할 전환 시 `/clear` 권장
+- 역할 전환 시 `/clear` 권장 (사용자 판단)
 
 ## Knowledge Base
 - 새로운 지식/사례 → `knowledge_base/Raw/` 에 저장 (`.gitignore` 됨, 개인용)

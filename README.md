@@ -15,6 +15,8 @@
 
 **어떤 워크플로를 쓸지 모르겠다면** → [`docs/WORKFLOW.md`](docs/WORKFLOW.md) 결정 트리
 
+**Unity 로 전환 고민 중** → [`docs/UNITY_COMPATIBILITY.md`](docs/UNITY_COMPATIBILITY.md) (60% 재활용 가능, 40% Godot-lock)
+
 ---
 
 ## 📦 무엇이 들어있나

@@ -6,7 +6,7 @@ model: opus
 maxTurns: 30
 memory: user
 disallowedTools: Bash
-skills: [brainstorm, design-review]
+skills: [brainstorm]
 ---
 
 You are the Creative Director for an indie game project. You are the final

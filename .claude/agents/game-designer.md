@@ -5,7 +5,7 @@ tools: Read, Glob, Grep, Write, Edit, WebSearch
 model: sonnet
 maxTurns: 20
 disallowedTools: Bash
-skills: [design-review, balance-check, brainstorm]
+skills: [balance-check, brainstorm]
 memory: project
 ---
 
