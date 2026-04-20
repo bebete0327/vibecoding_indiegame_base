@@ -176,9 +176,49 @@ knowledge_base/      → LLM 지식 위키
 ## Screenshot Capture (AI 피드백용)
 `scripts/utils/screenshot_capture.gd` 는 이미 **Autoload로 등록되어 있습니다** (`project.godot`의 `[autoload]` 섹션).
 - F9 키로 스크린샷 캡처 (F12 는 브라우저/OS 과 충돌 가능)
-- 저장 경로: **에디터 실행 시 프로젝트 루트의 `screenshots/`** (탐색기에서 바로 접근), 익스포트 빌드 시 `user://screenshots/`
+- 저장 경로: `ProjectPaths.writable_dir("screenshots/")` — 에디터 실행 시 **프로젝트 루트의 `screenshots/`**, 익스포트 빌드 시 `user://screenshots/`
 - `.gitignore` 로 커밋 방지됨
 - 캡처된 이미지를 Claude에게 보여주어 UI/물리 버그 피드백 가능
+
+## File Persistence Convention (필수 규칙)
+
+**런타임에 프로젝트가 읽거나 쓰는 모든 파일은 [`scripts/utils/project_paths.gd`](scripts/utils/project_paths.gd) 의 `ProjectPaths.writable_dir()` 을 사용합니다.**
+
+### 왜 이 규칙이 필요한가
+
+이전엔 세이브/스크린샷이 `user://` (Windows: `%APPDATA%\Godot\...`) 에 흩어져 저장됐습니다. 솔로 인디 개발 중엔 **프로젝트 폴더 안에 모든 것이 모여 있어야** 관리가 쉽습니다.
+
+### 규칙
+
+```gdscript
+# ❌ Bad — 플랫폼별 사용자 폴더에 흩어짐
+var path := "user://saves/slot_0.save"
+
+# ❌ Bad — 익스포트 빌드에서 res:// 는 읽기전용
+var path := "res://saves/slot_0.save"
+
+# ✅ Good — ProjectPaths 가 모드별로 알아서 결정
+var dir := ProjectPaths.writable_dir("saves/")
+var path := dir.path_join("slot_0.save")
+
+# 또는 디렉토리 생성까지 한 번에:
+var dir := ProjectPaths.ensure_writable_dir("saves/")
+```
+
+### 경로 해석 규칙 (`ProjectPaths` 내부)
+
+| 실행 모드 | 결과 경로 |
+|----------|----------|
+| 에디터 실행 (`OS.has_feature("editor") == true`) | `<프로젝트 루트>/<subdir>/` |
+| 익스포트 빌드 | `user://<subdir>/` → 플랫폼별 AppData |
+
+### 새로운 subdir 추가 시 체크리스트
+
+1. `ProjectPaths.writable_dir("foo/")` 로 경로 얻기
+2. `.gitignore` 에 `foo/` 추가 (런타임 생성 파일은 Git 추적 제외)
+3. 필요하면 `scripts/dev_tools/health_check.gd` 의 디렉토리 체크 리스트에 추가
+
+현재 사용 중인 subdir: `screenshots/`, `saves/`, `logs/`, `profiles/`
 
 ## Skills (슬래시 명령)
 

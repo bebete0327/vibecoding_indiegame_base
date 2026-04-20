@@ -22,8 +22,12 @@ knowledge_base/Raw/*
 Thumbs.db
 desktop.ini
 
-# Debug screenshots
+# 런타임 쓰기 디렉토리 (ProjectPaths.writable_dir) — 에디터 실행 시 프로젝트 루트에 생성
+# 새 subdir 추가 시 여기도 등록할 것
 screenshots/
+saves/
+logs/
+profiles/
 
 # graphify — 전이트 파일만 무시, 그래프 산출물(graph.html/GRAPH_REPORT.md/graph.json) 은 커밋
 graphify-out/.graphify_*

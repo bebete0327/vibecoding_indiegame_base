@@ -53,16 +53,17 @@ static func run() -> bool:
 		print("  ✗ Input map — missing: %s" % missing_actions)
 		all_ok = false
 
-	# 3. 스크린샷 디렉토리 쓰기 가능 (에디터 실행 시 프로젝트 루트, 아니면 user://)
-	var ss_dir: String = ProjectSettings.globalize_path(
-		"res://screenshots/" if OS.has_feature("editor") else "user://screenshots/"
-	)
-	var err := DirAccess.make_dir_recursive_absolute(ss_dir)
-	if err == OK:
-		print("  ✓ Screenshot dir writable: %s" % ss_dir)
-	else:
-		print("  ✗ Screenshot dir NOT writable (err=%d)" % err)
-		all_ok = false
+	# 3. 런타임 쓰기 디렉토리 (ProjectPaths.writable_dir 규칙)
+	var mode := "editor" if ProjectPaths.is_editor_run() else "export (user://)"
+	print("  ℹ Writable dir mode: %s" % mode)
+	for subdir in ["screenshots/", "saves/", "logs/", "profiles/"]:
+		var path := ProjectPaths.writable_dir(subdir)
+		var err := DirAccess.make_dir_recursive_absolute(path)
+		if err == OK:
+			print("    ✓ %s  →  %s" % [subdir, path])
+		else:
+			print("    ✗ %s  →  NOT writable (err=%d)" % [subdir, err])
+			all_ok = false
 
 	# 4. Autoload 는 SceneTree 가 필요하므로 실행 모드에 따라 다르게 체크
 	if Engine.get_main_loop() != null and Engine.get_main_loop() is SceneTree:

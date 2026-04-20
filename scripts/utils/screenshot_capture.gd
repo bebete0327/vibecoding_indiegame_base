@@ -54,11 +54,9 @@ func _input(event: InputEvent) -> void:
 
 ## 저장 디렉토리 해석:
 ##   1. override_dir 지정 있으면 그걸 사용 (절대/상대 모두 가능)
-##   2. 에디터 실행 중이면 `res://screenshots/` 를 실제 프로젝트 폴더 경로로 변환
-##   3. 그 외 (익스포트 빌드) 는 `user://screenshots/` — 플랫폼별 쓰기 가능 영역
+##   2. 그 외 → ProjectPaths.writable_dir("screenshots/") 규칙 따름
+##      (에디터: 프로젝트 루트, 익스포트: user://)
 func _get_screenshot_dir() -> String:
 	if not override_dir.is_empty():
 		return ProjectSettings.globalize_path(override_dir)
-	if OS.has_feature("editor"):
-		return ProjectSettings.globalize_path("res://screenshots/")
-	return ProjectSettings.globalize_path("user://screenshots/")
+	return ProjectPaths.writable_dir("screenshots/")

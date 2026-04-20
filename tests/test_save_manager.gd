@@ -1,5 +1,6 @@
 ## SaveManager 저장/로드 라운드트립 테스트.
-## 실제 파일 시스템(user://saves/)을 사용하므로 테스트 슬롯을 격리해서 씁니다.
+## 실제 파일 시스템(에디터: <project>/saves/, 익스포트: user://saves/) 을 사용하므로
+## 테스트 슬롯을 999 로 격리해서 씁니다.
 extends GutTest
 
 const TEST_SLOT: int = 999

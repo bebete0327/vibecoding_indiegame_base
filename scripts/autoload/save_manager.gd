@@ -13,13 +13,16 @@
 ##   var data := SaveManager.load_data()   # wrapped → 자동으로 data 필드 추출
 ##   if data.has("score"): ...
 ##
+## 저장 경로 (ProjectPaths 규칙):
+##   에디터 실행 시 → `<프로젝트 루트>/saves/slot_N.save`
+##   익스포트 빌드 시 → `user://saves/slot_N.save` (플랫폼별 AppData)
+##
 ## 저장 시 기존 파일이 있으면 `.bak` 으로 자동 백업 (실수 방지).
 ## 스키마 변경 시 CURRENT_VERSION 증가 + _migrate() 구현.
 ##
 ## NOTE: Autoload 스크립트는 class_name 선언 안 함.
 extends Node
 
-const SAVE_DIR: String = "user://saves/"
 const DEFAULT_SLOT: int = 0
 const CURRENT_VERSION: int = 1
 
@@ -28,7 +31,7 @@ signal load_completed(slot: int, success: bool)
 
 
 func _ready() -> void:
-	DirAccess.make_dir_recursive_absolute(SAVE_DIR)
+	ProjectPaths.ensure_writable_dir("saves/")
 
 
 func save_data(data: Dictionary, slot: int = DEFAULT_SLOT) -> bool:
@@ -110,4 +113,4 @@ func _migrate(data: Dictionary, from_version: int, to_version: int) -> Dictionar
 
 
 func _slot_path(slot: int) -> String:
-	return "%sslot_%d.save" % [SAVE_DIR, slot]
+	return ProjectPaths.writable_dir("saves/").path_join("slot_%d.save" % slot)
