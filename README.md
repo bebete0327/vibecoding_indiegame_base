@@ -7,9 +7,12 @@
 
 ## 🚀 지금 뭘 해야 하지?
 
-**처음 클론한 경우** → [`docs/START_HERE.md`](docs/START_HERE.md) (5분)
+> ### 🆕 처음 설치하는 경우 (Python/Node/Git 아무것도 없는 새 PC)
+> ### **→ [`INSTALL.md`](INSTALL.md) 로 가세요 (30~45분, 전체 설치 가이드)**
 
-**환경 설정이 안 된 경우** → [`docs/SETUP.md`](docs/SETUP.md)
+**이미 환경 세팅 된 경우** → [`docs/START_HERE.md`](docs/START_HERE.md) (5분 튜토리얼)
+
+**환경변수만 설정 안 된 경우** → [`docs/SETUP.md`](docs/SETUP.md)
 
 **새 게임을 시작한다면** → [`docs/TEMPLATE_GUIDE.md`](docs/TEMPLATE_GUIDE.md)
 
@@ -34,23 +37,19 @@
 
 ---
 
-## ⚡ 빠른 시작
+## ⚡ 빠른 시작 (이미 설치 완료된 경우)
+
+> 전체 설치가 안 된 경우엔 **[`INSTALL.md`](INSTALL.md)** 먼저.
 
 ```bash
 # 1. 환경변수 설정 (한번만)
 #    Windows PowerShell 에서:
 #    [System.Environment]::SetEnvironmentVariable('GODOT_PATH', 'C:\path\to\Godot.exe', 'User')
 
-# 2. 프로젝트 검증
-"$GODOT_PATH" --headless --path . -e --quit
-
-# 3. 테스트 실행
-"$GODOT_PATH" -d -s --path . addons/gut/gut_cmdln.gd -gdir=res://tests -ginclude_subdirs -gexit
-
-# 4. 자가진단 (위 둘을 한 번에)
+# 2. 자가진단 (모든 것이 정상인지 한 번에)
 "$GODOT_PATH" --headless --path . --script res://scripts/dev_tools/health_check.gd
 
-# 5. 에디터 열기
+# 3. 에디터 열기
 "$GODOT_PATH" --path .
 ```
 
