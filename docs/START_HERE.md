@@ -35,6 +35,26 @@ export GODOT_PATH="/path/to/godot"   # ~/.bashrc 또는 ~/.zshrc 에 추가
 
 **새 터미널을 열어야** 반영됩니다.
 
+### 1.1 graphify 설치 (선택, 토큰 절감용)
+
+[graphify](https://github.com/safishamsi/graphify) 는 코드베이스를 질의 가능한 knowledge graph 로 변환해 Claude 가 파일 전체 대신 그래프를 조회하게 합니다. 프로젝트가 100+ 파일로 커지면 큰 토큰 절감 효과.
+
+```bash
+# 패키지 설치
+pip install graphifyy
+
+# Claude Code 통합 (프로젝트 루트에서 실행)
+graphify claude install   # CLAUDE.md 에 섹션 추가 + PreToolUse 훅 등록
+graphify hook install     # git post-commit 훅 (코드 변경 시 자동 재빌드)
+
+# 초기 그래프 빌드 (Claude Code 세션에서)
+/graphify .
+```
+
+**현재 템플릿 상태**: 총 ~28K 단어 (단일 컨텍스트에 적재 가능). 프로젝트가 이보다 커지면 초기 빌드 추천.
+
+**주의**: `.gd` 파일은 tree-sitter GDScript 미지원으로 AST 추출 제외. markdown/JSON/문서만 그래프화.
+
 ---
 
 ## 2. 자가진단 실행

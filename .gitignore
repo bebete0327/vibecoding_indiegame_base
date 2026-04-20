@@ -24,3 +24,8 @@ desktop.ini
 
 # Debug screenshots
 screenshots/
+
+# graphify — 전이트 파일만 무시, 그래프 산출물(graph.html/GRAPH_REPORT.md/graph.json) 은 커밋
+graphify-out/.graphify_*
+graphify-out/cost.json
+graphify-out/.needs_update
