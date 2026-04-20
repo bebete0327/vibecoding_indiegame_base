@@ -55,7 +55,7 @@
 
 실행 중 단축키:
 - **F3** — 디버그 HUD 토글 (FPS/MEM/Nodes)
-- **F9** — 스크린샷 저장 (`user://screenshots/`)
+- **F9** — 스크린샷 저장 (에디터: `screenshots/` 프로젝트 루트, 익스포트: `user://screenshots/`)
 - **Esc** — 일시정지 메뉴
 
 ---

@@ -53,11 +53,13 @@ static func run() -> bool:
 		print("  ✗ Input map — missing: %s" % missing_actions)
 		all_ok = false
 
-	# 3. 스크린샷 디렉토리 쓰기 가능
-	var ss_dir := "user://screenshots/"
+	# 3. 스크린샷 디렉토리 쓰기 가능 (에디터 실행 시 프로젝트 루트, 아니면 user://)
+	var ss_dir: String = ProjectSettings.globalize_path(
+		"res://screenshots/" if OS.has_feature("editor") else "user://screenshots/"
+	)
 	var err := DirAccess.make_dir_recursive_absolute(ss_dir)
 	if err == OK:
-		print("  ✓ Screenshot dir writable: %s" % ProjectSettings.globalize_path(ss_dir))
+		print("  ✓ Screenshot dir writable: %s" % ss_dir)
 	else:
 		print("  ✗ Screenshot dir NOT writable (err=%d)" % err)
 		all_ok = false
