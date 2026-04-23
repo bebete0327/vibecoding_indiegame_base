@@ -8,8 +8,8 @@
 #
 # 변경하려면: 이 스크립트 상단의 SPINE_VERSION, GODOT_VERSION 수정.
 #
-# ⚠️ 라이선스: Runtime 자체는 평가용 무료이나, 이 런타임을 포함한 게임을 **배포 / 판매** 할 때는
-#    반드시 Spine 라이선스 ($69~) 보유 필수. https://esotericsoftware.com/spine-purchase
+# 라이선스: Spine 에디터 구매자는 런타임을 자유롭게 통합/배포 가능.
+#           https://esotericsoftware.com/spine-purchase
 
 set -euo pipefail
 
@@ -85,7 +85,4 @@ echo "       \"\$GODOT_PATH\" --path $REPO_ROOT"
 echo "  2. Spine 에디터에서 export 한 .skel + .atlas + .png 를 assets/spine/ 에 배치"
 echo "  3. Godot 씬에 SpineSprite 노드 추가 후 리소스 지정"
 echo ""
-echo "문서: docs/SPINE.md"
-echo ""
-echo "⚠️  게임 배포 시 Spine 에디터 라이선스 필수:"
-echo "    https://esotericsoftware.com/spine-purchase"
+echo "문서: docs/SPINE.md · 예제 씬: scenes/examples/spine_example.tscn"

@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxvibe0spine00"]
+
+[ext_resource type="Script" path="res://scripts/components/spine_animation_component.gd" id="1_spine_comp"]
+
+[node name="SpineExample" type="Node2D"]
+
+[node name="SpineSprite" type="SpineSprite" parent="."]
+position = Vector2(640, 400)
+; 여기에 Spine 에셋을 연결하세요:
+; 1. assets/spine/<character>/ 에 .skel + .atlas + .png 배치
+; 2. FileSystem 에서 New Resource → SpineAtlasResource → atlas_file 지정 → .tres 저장
+; 3. FileSystem 에서 New Resource → SpineSkeletonDataResource → skeleton_file_res + atlas_res 지정 → .tres 저장
+; 4. 이 SpineSprite 의 skeleton_data_res 속성에 (3) 에서 만든 .tres 드래그
+
+[node name="SpineAnimationComponent" type="Node" parent="."]
+script = ExtResource("1_spine_comp")
+; 인스펙터에서 spine_sprite 속성에 위 SpineSprite 드래그
+; 또는 _ready() 에서 auto-find 됨 (형제 노드 검색)
+
+[node name="HintLabel" type="Label" parent="."]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 600.0
+offset_bottom = 60.0
+text = "Spine Example Scene — add .skel/.atlas to assets/spine/ and link resources"

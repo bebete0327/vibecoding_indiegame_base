@@ -251,8 +251,7 @@ bash scripts/dev_tools/install_spine_runtime.sh
 
 - S3 공식에서 ~14MB 자동 다운로드 → `bin/` 에 압축 해제 (43MB)
 - Spine 4.2.x 호환 · Godot 4.6.1-stable 빌드 (4.6.x 전체 ABI 호환)
-- **⚠️ 라이선스 주의**: 런타임은 평가용 무료, **게임 배포 시 Spine 에디터 라이선스 ($69~) 필수**
-- 자세한 사용법: [`docs/SPINE.md`](docs/SPINE.md)
+- 자세한 사용법: [`docs/SPINE.md`](docs/SPINE.md) · 예제 씬: `scenes/examples/spine_example.tscn`
 
 ### 4. 자가진단 실행 (모든 것이 정상인지 확인)
 

@@ -65,6 +65,13 @@ static func run() -> bool:
 			print("    ✗ %s  →  NOT writable (err=%d)" % [subdir, err])
 			all_ok = false
 
+	# 4. Spine 런타임 (선택 — 있으면 확인, 없으면 안내)
+	if ClassDB.class_exists("SpineSprite"):
+		print("  ✓ Spine 런타임 로드됨 (SpineSprite 등 클래스 등록)")
+	else:
+		print("  - Spine 런타임 미설치 (선택) — 2D 애니메이션 쓰려면:")
+		print("    bash scripts/dev_tools/install_spine_runtime.sh")
+
 	# 4. Autoload 는 SceneTree 가 필요하므로 실행 모드에 따라 다르게 체크
 	if Engine.get_main_loop() != null and Engine.get_main_loop() is SceneTree:
 		var tree: SceneTree = Engine.get_main_loop()
