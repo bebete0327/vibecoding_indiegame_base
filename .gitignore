@@ -33,3 +33,7 @@ profiles/
 graphify-out/.graphify_*
 graphify-out/cost.json
 graphify-out/.needs_update
+
+# Spine GDExtension 런타임 (Esoteric Software 라이선스 보호 + 43MB 바이너리)
+# 설치: scripts/dev_tools/install_spine_runtime.sh (공식 S3 에서 자동 다운로드)
+/bin/

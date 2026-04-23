@@ -140,15 +140,18 @@ signal health_changed(new_health: int)
 ```
 scenes/              → .tscn 씬 파일
 scripts/             → .gd 스크립트 파일
-scripts/utils/       → 유틸리티 (ScreenshotCapture 등)
+scripts/utils/       → 유틸리티 (ScreenshotCapture, ProjectPaths 등)
 scripts/autoload/    → Autoload 싱글톤
 scripts/components/  → 재사용 컴포넌트
 scripts/states/      → State Machine
 scripts/resources/   → Resource 데이터 클래스
+scripts/dev_tools/   → 개발 도구 (health_check, install_spine_runtime 등)
 assets/sprites/      → 스프라이트/이미지
 assets/audio/        → 사운드/음악
 assets/fonts/        → 폰트
+assets/spine/        → Spine 2D 에셋 (.skel/.atlas/.png, 캐릭터별 서브폴더)
 addons/              → Godot 플러그인 (GUT 등)
+bin/                 → Spine GDExtension 런타임 (.gitignore, 각자 설치)
 tests/               → GUT 테스트 스크립트
 docs/                → 문서 (SETUP, TEMPLATE_GUIDE, RESEARCH, PLAN, ARCHITECTURE, CONVENTIONS, GDD_TEMPLATE, UPGRADE, COLLABORATIVE-DESIGN-PRINCIPLE)
 docs/engine-reference/godot/  → Godot 4.6 API 변경사항 (LLM 지식갭 보완)

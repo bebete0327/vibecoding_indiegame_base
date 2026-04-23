@@ -20,6 +20,8 @@
 
 **Unity 로 전환 고민 중** → [`docs/UNITY_COMPATIBILITY.md`](docs/UNITY_COMPATIBILITY.md) (60% 재활용 가능, 40% Godot-lock)
 
+**Spine 2D 애니메이션 사용** → [`docs/SPINE.md`](docs/SPINE.md) (런타임 설치 + 사용법 + 라이선스)
+
 ---
 
 ## 📦 무엇이 들어있나

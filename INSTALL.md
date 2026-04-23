@@ -23,6 +23,7 @@
 | 6 | **Git LFS** | 대용량 에셋 (Git 과 함께 설치 가능) | ~10 MB | 🟡 권장 |
 | 7 | **GitHub Desktop** | Git 인증 자동 처리 (PAT 입력 회피) | ~150 MB | 🟢 선택 |
 | 8 | **VS Code** | 텍스트 에디터 (또는 다른 IDE) | ~100 MB | 🟢 선택 |
+| 9 | **Spine 2D Runtime** (GDExtension) | 2D 스켈레탈 애니메이션 | ~43 MB (S3 자동 다운로드) | 🟡 권장 (2D 게임 시) |
 
 **최소 설치**: 1,2,3,4 — 이것만 있으면 기본 게임 개발 가능.
 **권장 설치**: +5,6 — graphify 토큰 절감 + LFS 대용량 에셋 지원.
@@ -240,6 +241,18 @@ git lfs pull   # 기존 LFS 추적 파일 받기
 graphify claude install      # CLAUDE.md 에 섹션 추가 + PreToolUse 훅
 graphify hook install        # git post-commit 훅 (자동 재빌드)
 ```
+
+### 3.5 Spine 2D 런타임 설치 (2D 게임 제작 시 권장)
+
+Git Bash 에서:
+```bash
+bash scripts/dev_tools/install_spine_runtime.sh
+```
+
+- S3 공식에서 ~14MB 자동 다운로드 → `bin/` 에 압축 해제 (43MB)
+- Spine 4.2.x 호환 · Godot 4.6.1-stable 빌드 (4.6.x 전체 ABI 호환)
+- **⚠️ 라이선스 주의**: 런타임은 평가용 무료, **게임 배포 시 Spine 에디터 라이선스 ($69~) 필수**
+- 자세한 사용법: [`docs/SPINE.md`](docs/SPINE.md)
 
 ### 4. 자가진단 실행 (모든 것이 정상인지 확인)
 
