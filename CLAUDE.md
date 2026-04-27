@@ -354,14 +354,6 @@ var dir := ProjectPaths.ensure_writable_dir("saves/")
 "$GODOT_PATH" --path .
 ```
 
-## Agent Roles (에이전트 역할 활용)
-상황에 맞는 역할을 부여하여 더 나은 결과물:
-- **Creative Director**: `/office-hours`, `/plan-ceo-review`
-- **Tech Lead**: `/plan-eng-review`, docs/ARCHITECTURE.md 참조
-- **QA Engineer**: `/qa`, GUT 테스트 작성
-- **Code Reviewer**: `/review`, docs/CONVENTIONS.md 준수 확인
-- **Security Officer**: `/cso`, 보안 취약점 검토
-
 ## graphify
 
 This project has a graphify knowledge graph at graphify-out/.

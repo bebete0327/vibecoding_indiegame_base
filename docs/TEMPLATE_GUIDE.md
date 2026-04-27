@@ -77,24 +77,16 @@ Main (Node)                       ← scenes/main.tscn (기본)
 
 ## 4. Autoload(전역 서비스) 추가
 
-### 4.1 기본 제공 (템플릿에 사전 등록됨)
-| Autoload | 파일 | 용도 |
-|----------|------|------|
-| `Screenshot_Capture` | `scripts/utils/screenshot_capture.gd` | F9 키로 스크린샷 저장 (AI 피드백용) |
-| `EventBus` | `scripts/autoload/event_bus.gd` | 글로벌 시그널 허브 |
-| `GameManager` | `scripts/autoload/game_manager.gd` | 게임 상태/씬 전환/점수 |
-| `AudioManager` | `scripts/autoload/audio_manager.gd` | BGM 크로스페이드 + SFX 풀 |
-| `SaveManager` | `scripts/autoload/save_manager.gd` | JSON 기반 세이브/로드 |
-| `ServiceLocator` | `scripts/autoload/service_locator.gd` | 런타임 서비스 등록/조회 |
+기본 제공 Autoload 전체 목록 → **[CLAUDE.md "File Structure" 섹션](../CLAUDE.md)** 의 `scripts/autoload/` 항목 참조 (단일 소스).
 
-> **주의**: Autoload 스크립트는 `class_name` 을 선언하지 않습니다 (Autoload 이름과 전역 클래스 이름이 충돌). 호출은 그냥 `EventBus.game_started.emit()` 처럼 Autoload 이름으로 합니다.
-
-### 4.2 새 Autoload 추가
+### 새 Autoload 추가 절차
 1. `scripts/autoload/<your_autoload>.gd` 를 생성 (기존 파일 참고)
 2. Godot 에디터 → Project Settings → Autoload → 추가 (이름, 경로 입력)
 3. 어디서든 호출: `<Autoload이름>.method()`
 
-패턴 레퍼런스: `knowledge_base/Wiki/gdscript-patterns.md`
+> **주의**: Autoload 스크립트는 `class_name` 을 선언하지 않습니다 (Autoload 이름과 전역 클래스 이름 충돌 방지).
+
+패턴 레퍼런스: [`knowledge_base/Wiki/gdscript-patterns.md`](../knowledge_base/Wiki/gdscript-patterns.md)
 
 ---
 
