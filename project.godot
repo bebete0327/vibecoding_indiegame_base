@@ -26,6 +26,7 @@ ServiceLocator="*res://scripts/autoload/service_locator.gd"
 DebugHUD="*res://scripts/autoload/debug_hud.gd"
 FadeTransition="*res://scripts/autoload/fade_transition.gd"
 PauseMenu="*res://scripts/autoload/pause_menu.gd"
+DamageNumberManager="*res://scripts/autoload/damage_number_manager.gd"
 
 [input]
 
